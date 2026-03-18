@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>906</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>906</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuBill">
+    <property name="title">
+     <string>Bill</string>
+    </property>
+    <addaction name="actionSale_Bill"/>
+    <addaction name="actionPurchase_Bill"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionNew_User"/>
+    <addaction name="actionChange_Password"/>
+    <addaction name="actionBlock_User"/>
+   </widget>
+   <addaction name="menuBill"/>
+   <addaction name="menuTools"/>
+  </widget>
+  <action name="actionSale_Bill">
+   <property name="text">
+    <string>Sale_Bill</string>
+   </property>
+  </action>
+  <action name="actionPurchase_Bill">
+   <property name="text">
+    <string>Purchase_Bill</string>
+   </property>
+  </action>
+  <action name="actionNew_User">
+   <property name="text">
+    <string>New User</string>
+   </property>
+  </action>
+  <action name="actionChange_Password">
+   <property name="text">
+    <string>Change_Password</string>
+   </property>
+  </action>
+  <action name="actionBlock_User">
+   <property name="text">
+    <string>Block_User</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

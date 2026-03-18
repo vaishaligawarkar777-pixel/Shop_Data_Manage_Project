@@ -1,16 +1,23 @@
-# This is a sample Python script.
+import sqlite3
+from PyQt5.QtWidgets import QApplication
+from MainWindow.clsMainWindow import clsMainWindow
+from Login.clsLogin import clsLogin
+import sys
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app=QApplication([])
+conn=sqlite3.connect('DataBase.db')
+cursor=conn.cursor()
+sql=f"Select * From User_LoginData"
+cursor.execute(sql)
+result=cursor.fetchall()
+i=0
+for row in result:
+    i+=1
+m=clsMainWindow()
+l=clsLogin()
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if i==0:
+    m.show()
+else:
+   l.show()
+sys.exit(app.exec_())
