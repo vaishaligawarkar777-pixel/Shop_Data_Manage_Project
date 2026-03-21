@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="001c2e2b-e54f-4e0e-8965-58989ae00013" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Purchase_Bill/clsPurchase_Bill.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Account_Project1" beforeDir="false" afterPath="$PROJECT_DIR$/../Account_Project1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Batch_Form/clsBatch_Form.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Course_Form/clsCourse_Form.py" beforeDir="false" />
@@ -18,9 +16,8 @@
       <change beforePath="$PROJECT_DIR$/../My_Project_2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Password_Login_Project" beforeDir="false" afterPath="$PROJECT_DIR$/../Password_Login_Project" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Block_User/clsBlock_User.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block_User/clsBlock_User.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataBase.db" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../python_project_1" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +50,7 @@
   "keyToString": {
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "D:/python_git/Shop_Data_Manage_Project"
   }
 }]]></component>
