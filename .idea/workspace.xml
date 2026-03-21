@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="001c2e2b-e54f-4e0e-8965-58989ae00013" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Block_User/clsBlock_User.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Change_Password/clsChange_Password.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Login/clsLogin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/New_User/clsNew_User.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Purchase_Bill/clsPurchase_Bill.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Account_Project1" beforeDir="false" afterPath="$PROJECT_DIR$/../Account_Project1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Batch_Form/clsBatch_Form.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Course_Form/clsCourse_Form.py" beforeDir="false" />
@@ -21,7 +18,9 @@
       <change beforePath="$PROJECT_DIR$/../My_Project_2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Password_Login_Project" beforeDir="false" afterPath="$PROJECT_DIR$/../Password_Login_Project" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Block_User/clsBlock_User.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block_User/clsBlock_User.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase.db" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../python_project_1" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,9 +38,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="3B6zhoA00biusNq42u1dEEYnylV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -55,7 +54,7 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/python_git/Shop_Data_Manage_Project/main.py"
+    "last_opened_file_path": "D:/python_git/Shop_Data_Manage_Project"
   }
 }]]></component>
   <component name="RunManager">
