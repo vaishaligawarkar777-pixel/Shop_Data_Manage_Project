@@ -5,7 +5,7 @@ from New_User.clsNew_User import clsNew_User
 from Change_Password.clsChange_Password import clsChange_Password
 from Block_User.clsBlock_User import clsBlock_User
 from Sale_Bill.clsSale_Bill import clsSale_Bill
-# from Purchase_Bill.clsPurchase_Bill import clsPurchase_Bill
+from Purchase_Bill.clsPurchase_Bill import clsPurchase_Bill
 class clsMainWindow(QMainWindow):
     def __init__(self):
         super(clsMainWindow,self).__init__()
@@ -16,6 +16,7 @@ class clsMainWindow(QMainWindow):
         self.ui.actionChange_Password.triggered.connect(self.Change_PasswordClick)
         self.ui.actionBlock_User.triggered.connect(self.Block_UserClick)
         self.ui.actionSale_Bill.triggered.connect(self.Sale_BillClick)
+        self.ui.actionPurchase_Bill.triggered.connect(self.Purchase_BillClick)
 
     def new_UserClick(self):
         self.n1=clsNew_User()
@@ -36,3 +37,8 @@ class clsMainWindow(QMainWindow):
         self.s1=clsSale_Bill()
         self.ui.mdiArea.addSubWindow(self.s1)
         self.s1.show()
+
+    def Purchase_BillClick(self):
+        self.p1=clsPurchase_Bill()
+        self.ui.mdiArea.addSubWindow(self.p1)
+        self.p1.show()

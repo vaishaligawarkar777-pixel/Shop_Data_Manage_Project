@@ -6,6 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="001c2e2b-e54f-4e0e-8965-58989ae00013" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../Account_Project1" beforeDir="false" afterPath="$PROJECT_DIR$/../Account_Project1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Batch_Form/Batch_Form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Batch_Form/Batch_Form.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Batch_Form/clsBatch_Form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Course_Form/Course_form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Course_Form/Course_form.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Course_Form/clsCourse_Form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Font_Form/Font_Form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Font_Form/Font_Form.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Font_Form/clsFont_Form.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Batch_Form/clsBatch_Form.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Course_Form/clsCourse_Form.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Font_Size_Convert_Project/Font_Form/clsFont_Form.py" beforeDir="false" />
@@ -15,9 +25,21 @@
       <change beforePath="$PROJECT_DIR$/../MainWindow_Project" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../My_Project_2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Password_Login_Project" beforeDir="false" afterPath="$PROJECT_DIR$/../Password_Login_Project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase.db" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Purchase_Bill/clsPurchase_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Purchase_Bill/clsPurchase_Bill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Student_Form/Student_Form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Student_Form/Student_Form.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Student_Form/clsStudent_Form.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../python_project_1" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
