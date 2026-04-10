@@ -28,14 +28,9 @@
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataBase.db" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainWindow/clsMainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Purchase_Bill/Purchase_Bill.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Purchase_Bill/clsPurchase_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Purchase_Bill/clsPurchase_Bill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/Sale_Bill.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sale_Bill/clsSale_Bill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Student_Form/Student_Form.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Student_Form/Student_Form.ui" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Student_Form/clsStudent_Form.py" beforeDir="false" />
@@ -68,14 +63,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/python_git/Shop_Data_Manage_Project"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/python_git/Password_Login_Project&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Shop_Data_Manage_Project" />
@@ -118,5 +113,16 @@
       <updated>1773824430410</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -1,3 +1,5 @@
+import math
+
 from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem,QMessageBox
 from Sale_Bill.Sale_Bill import Ui_MainWindow
@@ -20,10 +22,11 @@ class clsSale_Bill(QMainWindow):
         self.conn = sqlite3.connect('DataBase.db')
         self.cursor = self.conn.cursor()
         # self.ui.tableWidget.itemChanged.connect(self.calculate_row)
-        # self.ui.tableWidget_2.itemChanged.connect(self.calculate_row_Table_2)
+        self.update_grand_total_and_words()
 
         self.ui.btnNew.clicked.connect(self.NewBtnClick)
         self.ui.btnSave.clicked.connect(self.SaveBtnClick)
+        self.ui.btnSave.clicked.connect(self.SaveBtnClick_2)
         self.ui.btnUpdate.clicked.connect(self.UpdateBtnClick)
         self.ui.btnDelete.clicked.connect(self.DeleteBtnClick)
         self.ui.btnPrint.clicked.connect(self.PrintBtnClick)
@@ -66,6 +69,7 @@ class clsSale_Bill(QMainWindow):
         self.ui.tableWidget.currentCellChanged.connect(self.add_new_row)
         self.update_sr_numbers()
         self.ui.tableWidget.cellChanged.connect(self.calculateRowTotals)
+        #self.ui.tableWidget.itemChanged.connect(self.calculate_grand_total)
         # Connect after table setup
 
 
@@ -108,7 +112,8 @@ class clsSale_Bill(QMainWindow):
 
         self.ui.tableWidget_2.currentCellChanged.connect(self.add_new_row_2)
 
-        self.ui.txtBillNumber.editingFinished.connect(self.loadData)
+        # self.loadDataInTable()
+
     def add_new_row_2(self, currentRow, currentCol, previousRow, previousCol):
         table = self.ui.tableWidget_2
 
@@ -130,8 +135,6 @@ class clsSale_Bill(QMainWindow):
             # Empty cells
             for col in range(2, 12):
                 table.setItem(row, col, QTableWidgetItem(""))
-
-                self.update_sr_numbers_2()
 
     def update_sr_numbers_2(self):
         table = self.ui.tableWidget_2
@@ -171,154 +174,303 @@ class clsSale_Bill(QMainWindow):
             for col in range(2, 12):
                 table.setItem(row, col, QTableWidgetItem(""))
 
-
-    def move_to_next_column(self, event):
+    def move_to_next_column(self, event=None):
         table = self.ui.tableWidget
         row = table.currentRow()
         col = table.currentColumn()
 
-        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-            # Move to next column if not last column
+        START_COL = 2  # First editable column (Item Name)
+
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter):
+            # Move forward
             if col < table.columnCount() - 1:
                 table.setCurrentCell(row, col + 1)
             else:
-                # If last column, optionally move to next row first column
                 if row < table.rowCount() - 1:
-                    table.setCurrentCell(row + 1, 2)  # Start at Item Name of next row
+                    table.setCurrentCell(row + 1, START_COL)
                 else:
-                    # Or add new row automatically
                     table.insertRow(table.rowCount())
-                    table.setCurrentCell(row + 1, 2)
+                    table.setCurrentCell(row + 1, START_COL)
+
+        elif event.key() == Qt.Key_Backspace:
+            current_item = table.currentItem()
+
+            # If in protected column → do nothing
+            if col < START_COL:
+                return
+
+            # If cell has data → clear only data
+            if current_item and current_item.text():
+                current_item.setText("")
+            else:
+                # Move backward but NEVER go into Sr No column
+                if col > START_COL:
+                    table.setCurrentCell(row, col - 1)
+                else:
+                    # If at first editable column → go to previous row last editable column
+                    if row > 0:
+                        table.setCurrentCell(row - 1, table.columnCount() - 1)
+
         else:
-            # Normal key event
             super(type(table), table).keyPressEvent(event)
 
     def move_to_next_column_2(self, event=None):
-        table = self.ui.tableWidget_2
+        table = self.ui.tableWidget
         row = table.currentRow()
         col = table.currentColumn()
 
-        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
-            # Move to next column if not last column
+        START_COL = 2  # First editable column (Item Name)
+
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter):
+            # Move forward
             if col < table.columnCount() - 1:
                 table.setCurrentCell(row, col + 1)
             else:
-                # If last column, optionally move to next row first column
                 if row < table.rowCount() - 1:
-                    table.setCurrentCell(row + 1, 2)  # Start at Item Name of next row
+                    table.setCurrentCell(row + 1, START_COL)
                 else:
-                    # Or add new row automatically
                     table.insertRow(table.rowCount())
-                    table.setCurrentCell(row + 1, 2)
+                    table.setCurrentCell(row + 1, START_COL)
+
+        elif event.key() == Qt.Key_Backspace:
+            current_item = table.currentItem()
+
+            # If in protected column → do nothing
+            if col < START_COL:
+                return
+
+            # If cell has data → clear only data
+            if current_item and current_item.text():
+                current_item.setText("")
+            else:
+                # Move backward but NEVER go into Sr No column
+                if col > START_COL:
+                    table.setCurrentCell(row, col - 1)
+                else:
+                    # If at first editable column → go to previous row last editable column
+                    if row > 0:
+                        table.setCurrentCell(row - 1, table.columnCount() - 1)
+
         else:
-            # Normal key event
             super(type(table), table).keyPressEvent(event)
+
 
     def onCellClick(self, row, column):
 
-        print("Clicked:", row, column)  # debug
+        print("Clicked:", row, column)
 
-        # ✅ Correct column check (Item Name = 2)
         if column != 2:
             return
 
         columns_to_fill = [3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-        # 🔴 Step 1: Clear ALL rows
-        for r in range(self.ui.tableWidget.rowCount()):
-            for col in columns_to_fill:
-                self.ui.tableWidget.setItem(r, col, QTableWidgetItem(""))
-
-        # 🟢 Step 2: Fill ONLY clicked row
+        # 🟢 ONLY update clicked row (do NOT clear others)
         for col in columns_to_fill:
-            self.ui.tableWidget.setItem(row, col, QTableWidgetItem("0"))
+            item = self.ui.tableWidget.item(row, col)
+
+            if item is None:
+                item = QTableWidgetItem()
+                self.ui.tableWidget.setItem(row, col, item)
+
+            # Only set default if empty (optional)
+            if item.text() == "":
+                item.setText("0")
 
     def calculateRowTotals(self, row, column):
-        # Only recalc if Qty, Rate, GST% change
+
         if column not in [4, 5, 6]:
             return
 
         try:
-            # Safe read
-            qty_item = self.ui.tableWidget.item(row, 4)
-            rate_item = self.ui.tableWidget.item(row, 5)
-            gst_item = self.ui.tableWidget.item(row, 6)
+            table = self.ui.tableWidget
 
-            qty = float(qty_item.text()) if qty_item and qty_item.text().strip() != "" else 0
-            rate = float(rate_item.text()) if rate_item and rate_item.text().strip() != "" else 0
-            gst = float(gst_item.text()) if gst_item and gst_item.text().strip() != "" else 0
+            qty_item = table.item(row, 4)
+            rate_item = table.item(row, 5)
+            gst_item = table.item(row, 6)
 
-            # Subtotal = Qty × Rate
+            qty = float(qty_item.text()) if qty_item and qty_item.text().strip() else 0
+            rate = float(rate_item.text()) if rate_item and rate_item.text().strip() else 0
+            gst = float(gst_item.text()) if gst_item and gst_item.text().strip() else 0
+
             subtotal = qty * rate
-            self.ui.tableWidget.setItem(row, 7, QTableWidgetItem(f"{subtotal:.2f}"))
+            gst_amount = subtotal * gst / 100
 
-            # IGST → always 0, ignored in total
-            self.ui.tableWidget.setItem(row, 8, QTableWidgetItem("0"))
+            sgst = gst_amount / 2
+            cgst = gst_amount / 2
 
-            # SGST & CGST = 50% of GST on subtotal
-            sgst = subtotal * (gst / 100) / 2
-            cgst = subtotal * (gst / 100) / 2
+            total = subtotal + gst_amount
 
-            self.ui.tableWidget.setItem(row, 9, QTableWidgetItem(f"{sgst:.2f}"))
-            self.ui.tableWidget.setItem(row, 10, QTableWidgetItem(f"{cgst:.2f}"))
+            table.blockSignals(True)
 
-            # Total = subtotal + SGST + CGST (IGST ignored)
-            total = subtotal + sgst + cgst
-            self.ui.tableWidget.setItem(row, 11, QTableWidgetItem(f"{total:.2f}"))
+            table.setItem(row, 7, QTableWidgetItem(f"{subtotal:.2f}"))
+            table.setItem(row, 8, QTableWidgetItem("0"))
+            table.setItem(row, 9, QTableWidgetItem(f"{sgst:.2f}"))
+            table.setItem(row, 10, QTableWidgetItem(f"{cgst:.2f}"))
+            table.setItem(row, 11, QTableWidgetItem(f"{total:.2f}"))
+
+            table.blockSignals(False)
+
+            # ✅ MUST BE AFTER blockSignals(False)
+            self.update_grand_total_and_words()
 
         except Exception as e:
             print("Calculation error:", e)
+
     def onCellClick_2(self, row, column):
 
-        print("Clicked:", row, column)  # debug
+        print("Clicked:", row, column)
 
-        # ✅ Correct column check (Item Name = 2)
         if column != 2:
             return
 
-        columns_to_fill = [3, 4, 5, 6, 7, 8, 9, 10, 11]
+        columns_to_fill = [3, 4, 5, 6, 7, 8, 9, 10, 11,12]
 
-        # 🔴 Step 1: Clear ALL rows
-        for r in range(self.ui.tableWidget_2.rowCount()):
-            for col in columns_to_fill:
-                self.ui.tableWidget_2.setItem(r, col, QTableWidgetItem(""))
-
-        # 🟢 Step 2: Fill ONLY clicked row
+        # 🟢 ONLY update clicked row (do NOT clear others)
         for col in columns_to_fill:
-            self.ui.tableWidget_2.setItem(row, col, QTableWidgetItem("0"))
+            item = self.ui.tableWidget_2.item(row, col)
+
+            if item is None:
+                item = QTableWidgetItem()
+                self.ui.tableWidget_2.setItem(row, col, item)
+
+            # Only set default if empty (optional)
+            if item.text() == "":
+                item.setText("0")
 
 
-    def loadData(self):
-        bill_no = self.ui.txtBillNumber.text()
+    def number_to_words(self, number):
+        units = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                 "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
 
-        if bill_no == "":
-            return
+        tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
 
-        sql = "SELECT * FROM Sale_Purchase_Data WHERE Bill_Number=?"
-        self.cursor.execute(sql, (bill_no,))
-        data = self.cursor.fetchone()
+        if number < 20:
+            return units[number]
 
-        if data:
-            self.ui.dateEdit.setDate(QDate.fromString(data[2], "yyyy/MM/dd"))
-            self.ui.txtShriMS.setText(str(data[3]))
-            self.ui.txtAddress.setText(str(data[4]))
-            self.ui.txtState.setText(str(data[5]))
-            self.ui.txtStatePin.setText(str(data[6]))
-            self.ui.txtGST_IN.setText(str(data[7]))
-            self.ui.txtIncRecNo.setText(str(data[8]))
-            self.ui.cmbTransaction_Type.setCurrentText(data[9])
-        else:
-            # Optional: clear if not found
-            self.clearFocus()
+        if number < 100:
+            return tens[number // 10] + (" " + units[number % 10] if number % 10 != 0 else "")
+
+        if number < 1000:
+            return units[number // 100] + " Hundred " + (
+                "and " + self.number_to_words(number % 100) if number % 100 != 0 else "")
+
+        if number < 100000:
+            return self.number_to_words(number // 1000) + " Thousand " + (
+                self.number_to_words(number % 1000) if number % 1000 != 0 else "")
+
+        if number < 10000000:
+            return self.number_to_words(number // 100000) + " Lakh " + (
+                self.number_to_words(number % 100000) if number % 100000 != 0 else "")
+
+        return str(number)
+
+
+    def update_grand_total_and_words(self):
+        table = self.ui.tableWidget
+        grand_total = 0.0
+
+        # Calculate grand total
+        for row in range(table.rowCount()):
+            item = table.item(row, 11)
+            if item is not None:
+                text = item.text().strip()
+                if text != "":
+                    try:
+                        value = float(text)
+                        grand_total += value
+                    except:
+                        pass
+
+        # ROUNDING (.50 and above → UP)
+        rounded_total = int(math.floor(grand_total + 0.5))
+
+        # Show rounded total
+        self.ui.txtGrand_Total.setText(str(rounded_total))
+
+        # ✅ Round Off value (this was missing)
+        round_off = rounded_total - grand_total
+        self.ui.txtRoundOff.setText(f"{round_off:+.2f}")
+
+        # Words (based on rounded total)
+        words = self.number_to_words(rounded_total)
+        words += " Rupees Only"
+        self.ui.txtTotaWord.setText(words)
+
+    # def loadDataInTable(self):
+    #     self.cursor.execute(f"select * from Sale_Purchase_Data")
+    #     result = self.cursor.fetchall()
+    #     self.ui.tableWidget_2.setRowCount(0)
+    #     rw = 0
+    #     for row in result:
+    #         rw = int(rw) + 1
+    #         self.ui.tableWidget_2.setRowCount(rw)
+    #
+    #         self.ui.tableWidget_2.setItem(rw - 1, 1, QTableWidgetItem(str(row[1])))
+    #         # self.ui.tableWidget_2.setItem(rw - 1, 2, QTableWidgetItem(str(row[2])))
+    #         # self.ui.tableWidget_2.setItem(rw - 1, 3, QTableWidgetItem(str(row[3])))
+    #         # self.ui.tableWidget_2.setItem(rw - 1, 4, QTableWidgetItem(str(row[4])))
+    #         # self.ui.tableWidget_2.setItem(rw - 1, 5, QTableWidgetItem(str(row[5])))
+    #         # self.ui.tableWidget_2.setItem(rw - 1, 6, QTableWidgetItem(str(row[6])))
+
 
     def NewBtnClick(self):
-        pass
+        self.ui.txtBillNumber.setText("")
+        self.ui.txtShriMS.setText("")
+        self.ui.txtAddress.setText("")
+        self.ui.txtState.setText("")
+        self.ui.txtStateCode.setText("")
+        self.ui.txtGST_IN.setText("")
+        self.ui.txtIncRecNo.setText("")
+
     def SaveBtnClick(self):
+        # First main table
         Date = self.ui.dateEdit.date().toString("yyyy/MM/dd")
-        Transaction_Type=self.ui.cmbTransaction_Type.currentText()
-        sql = f"insert into Sale_Purchase_Data values(null,'{self.ui.txtBillNumber.text()}','{Date}','{self.ui.txtShriMS.text()}','{self.ui.txtAddress.text()}','{self.ui.txtState.text()}','{self.ui.txtStatePin.text()}','{self.ui.txtGST_IN.text()}','{self.ui.txtIncRecNo.text()}','{Transaction_Type}')"
+        Transaction_Type = self.ui.cmbTransaction_Type.currentText()
+
+        sql = f"insert into Sale_Data values(null,'{self.ui.txtBillNumber.text()}','{Date}','{self.ui.txtShriMS.text()}','{self.ui.txtAddress.text()}','{self.ui.txtState.text()}','{self.ui.txtStateCode.text()}','{self.ui.txtGST_IN.text()}','{self.ui.txtIncRecNo.text()}','{Transaction_Type}','{self.ui.txtGrand_Total.text()}','{self.ui.txtRoundOff.text()}')"
+
         self.cursor.execute(sql)
+
+        # Then detail table
+        self.SaveBtnClick_2()
+
         self.conn.commit()
+        #print("Full Bill Saved")
+
+    def SaveBtnClick_2(self):
+        BillNo = self.ui.txtBillNumber.text()
+
+        for row in range(self.ui.tableWidget.rowCount()):
+
+            if self.ui.tableWidget.item(row, 1) is None:
+                continue
+
+            def getVal(col):
+                item = self.ui.tableWidget.item(row, col)
+                return item.text() if item else "0"
+
+            sql = f"""
+            insert into Sale_Data_Detail 
+            values(
+            null,
+            '{BillNo}',
+            '{getVal(1)}',
+            '{getVal(2)}',
+            '{getVal(3)}',
+            '{getVal(4)}',
+            '{getVal(5)}',
+            '{getVal(6)}',
+            '{getVal(7)}',
+            '{getVal(8)}',
+            '{getVal(9)}',
+            '{getVal(10)}'
+            )
+            """
+
+            self.cursor.execute(sql)
+
+        self.conn.commit()
+
 
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -331,13 +483,13 @@ class clsSale_Bill(QMainWindow):
     def UpdateBtnClick(self):
         Date = self.ui.dateEdit.date().toString("yyyy/MM/dd")
         Transaction_Type = self.ui.cmbTransaction_Type.currentText()
-        sql = f"update Sale_Purchase_Data set Date='{Date}',ShriMS='{self.ui.txtShriMS.text()}',Address='{self.ui.txtAddress.text()}',State='{self.ui.txtState.text()}',State_Pin='{self.ui.txtStatePin.text()}',GST_IN='{self.ui.txtGST_IN.text()}', IncRecNo='{self.ui.txtIncRecNo.text()}',Transaction_Type='{Transaction_Type}' where Bill_Number='{self.ui.txtBillNumber.text()}'"
+        sql = f"update Sale_Data set Date='{Date}',ShriMS='{self.ui.txtShriMS.text()}',Address='{self.ui.txtAddress.text()}',State='{self.ui.txtState.text()}',State_Pin='{self.ui.txtStateCode.text()}',GST_IN='{self.ui.txtGST_IN.text()}', IncRecNo='{self.ui.txtIncRecNo.text()}',Transaction_Type='{Transaction_Type}', Grand_Total='{self.ui.txtGrand_Total.text()}',Round_Off='{self.ui.txtRoundOff.text()}'where Bill_Number='{self.ui.txtBillNumber.text()}'"
         self.cursor.execute(sql)
         self.conn.commit()
 
         QMessageBox.information(self, "Success", "Data Updated Successfully")
     def DeleteBtnClick(self):
-        sql = "DELETE FROM Sale_Purchase_Data WHERE Bill_Number=?"
+        sql = "DELETE FROM Sale_Data WHERE Bill_Number=?"
         self.cursor.execute(sql, (self.ui.txtBillNumber.text(),))
         self.conn.commit()
 
@@ -358,11 +510,7 @@ class clsSale_Bill(QMainWindow):
         self.ui.txtShriMS.clear()
         self.ui.txtAddress.clear()
         self.ui.txtState.clear()
-        self.ui.txtStatePin.clear()
+        self.ui.txtStateCode.clear()
         self.ui.txtGST_IN.clear()
         self.ui.txtIncRecNo.clear()
         self.ui.cmbTransaction_Type.setCurrentIndex(0)
-
-
-
-
